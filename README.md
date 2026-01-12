@@ -18,6 +18,8 @@ cd base_django_for_local
 
 Aşağıdaki komut, gerekli imajları indirecek ve servisleri (Django & PostgreSQL) arka planda çalıştıracaktır:
 ```bash
+docker-compose run web django-admin startproject myproject .
+
 docker-compose up -d --build
 ```
 
