@@ -23,14 +23,50 @@ docker-compose run web django-admin startproject myproject .
 docker-compose up -d --build
 ```
 
-### 3. Veritabanı Migration İşlemlerini Yapın
+### 3. Veritabanı bağlantısı ve diğer settings ayarları
+
+```bash
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+# .env dosyasındaki değişkenleri yükle
+load_dotenv()
+```
+
+```bash
+# Güvenlik uyarısı: Üretim ortamında bu anahtarı gizli tutun!
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-varsayilan-anahtar')
+
+# Debug modunu .env'den oku
+DEBUG = os.getenv('DEBUG') == '1'
+
+# Docker ve yerel erişim için izin verilen hostlar
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+```
+
+```bash
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),  # Docker içindeki servis adı (db)
+        'PORT': os.getenv('DB_PORT', '5432'),
+    }
+}
+```
+
+
+### 4. Veritabanı Migration İşlemlerini Yapın
 
 Django'nun standart tablolarını veritabanına yansıtmak için:
 ```bash
 docker-compose exec web python manage.py migrate
 ```
 
-### 4. Admin Paneli İçin Süper Kullanıcı Oluşturun
+### 5. Admin Paneli İçin Süper Kullanıcı Oluşturun
 ```bash
 docker-compose exec web python manage.py createsuperuser
 ```
