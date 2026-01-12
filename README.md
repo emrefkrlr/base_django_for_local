@@ -1,66 +1,62 @@
-Base Django for Local
-Bu proje, yerel geliştirme ortamında hızlıca Django denemeleri yapabilmeniz için Docker ve Docker Compose kullanılarak hazırlanmış hazır bir şablondur.
+# 🚀 Base Django for Local
 
-🚀 Özellikler
-Django 5.0+ (En güncel sürüm)
+Bu proje, yerel geliştirme (local development) ortamında hızlıca **Django** denemeleri yapabilmeniz için **Docker**, **Docker Compose** ve **PostgreSQL** kullanılarak hazırlanmış profesyonel bir başlangıç şablonudur.
 
-PostgreSQL 15 Veritabanı
+---
 
-Docker & Docker Compose entegrasyonu
+## 🛠️ Kurulum Adımları
 
-Geliştirilmiş .env yapılandırması
+Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları sırasıyla takip edin:
 
-🛠️ Kurulum ve Çalıştırma
-Projeyi yerel bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin:
-
-1. Repoyu Klonlayın
-Önce projeyi bilgisayarınıza indirin:
-
-Bash
-
-git clone https://github.com/KULLANICI_ADINIZ/base_django_for_local.git
+### 1. Repoyu Klonlayın
+```bash
+git clone [https://github.com/KULLANICI_ADINIZ/base_django_for_local.git](https://github.com/KULLANICI_ADINIZ/base_django_for_local.git)
 cd base_django_for_local
-2. Docker Konteynerlerini Başlatın
-Docker yüklü olduğundan emin olun ve terminalde şu komutu çalıştırın:
+```
 
-Bash
+### 2. Docker Konteynerlerini Başlatın
 
+Aşağıdaki komut, gerekli imajları indirecek ve servisleri (Django & PostgreSQL) arka planda çalıştıracaktır:
+```bash
 docker-compose up -d --build
-Bu komut gerekli imajları indirecek, veritabanını kuracak ve Django sunucusunu ayağa kaldıracaktır.
+```
 
-3. Veritabanı Göçlerini (Migration) Yapın
-Django'nun standart tablolarını oluşturmak için:
+### 3. Veritabanı Migration İşlemlerini Yapın
 
-Bash
-
+Django'nun standart tablolarını veritabanına yansıtmak için:
+```bash
 docker-compose exec web python manage.py migrate
-4. Süper Kullanıcı Oluşturun (Opsiyonel)
-Admin paneline girmek isterseniz bir kullanıcı oluşturun:
+```
 
-Bash
-
+### 4. Admin Paneli İçin Süper Kullanıcı Oluşturun
+```bash
 docker-compose exec web python manage.py createsuperuser
-🌐 Erişim
-Kurulum tamamlandıktan sonra şu adreslerden projeye erişebilirsiniz:
+```
 
-Django Uygulaması: http://localhost:8000
+### 🌐 Erişim Bilgileri
+Kurulum tamamlandıktan sonra tarayıcınızdan aşağıdaki adreslere erişebilirsiniz:
+
+Django Web Uygulaması: http://localhost:8000
 
 Django Admin Paneli: http://localhost:8000/admin
 
-📂 Dosya Yapısı ve Görevleri
-docker-compose.yml: Servislerin (Web ve DB) orkestrasyonu.
+### 📂 Proje Bileşenleri
+Django 5.0+: En güncel Python web çatısı.
 
-Dockerfile: Python ortamının ve bağımlılıkların kurulumu.
+PostgreSQL 15: Güçlü ve güvenilir veritabanı.
 
-.env: Veritabanı şifreleri ve gizli anahtarlar (Eğitim amaçlı repoya dahil edilmiştir).
+Dockerfile: Python çalışma ortamı ve bağımlılıkların yönetimi.
 
-requirements.txt: Gerekli Python kütüphaneleri.
+docker-compose.yml: Veritabanı ve Web servislerinin orkestrasyonu.
 
-🛑 Durdurma
-Çalışan konteynerleri durdurmak isterseniz:
+.env: Veritabanı bağlantı bilgileri ve gizli anahtarlar (Eğitim amaçlı repoya dahil edilmiştir).
 
-Bash
+### 🛑 Servisleri Durdurma
 
+Çalışan tüm servisleri durdurmak ve temizlemek için:
+```bash
 docker-compose down
-Küçük Bir Not
+```
+
+### Küçük Bir Not
 Bu repo eğitim amaçlıdır. Canlıya (Production) geçiş yaparken .env dosyasını gizlemeyi ve DEBUG=False yapmayı unutmayın!
